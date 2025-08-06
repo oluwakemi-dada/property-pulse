@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import Navbar from '@/components/Navbar/Navbar';
 import '@/assets/styles/globals.css';
 
 export const metadata = {
@@ -11,6 +12,7 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
   return (
     <html>
       <body>
+        <Navbar />
         <main>{children}</main>
       </body>
     </html>
