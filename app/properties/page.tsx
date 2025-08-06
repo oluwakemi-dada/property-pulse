@@ -1,7 +1,14 @@
-import properties from '@/properties.json';
 import PropertyCard from '@/components/PropertyCard';
+import connectDB from '@/config/database';
+import Property from '@/models/Property';
+import type { Property as PropertyType } from '@/types';
 
-const PropertiesPage = () => {
+const PropertiesPage = async () => {
+  await connectDB();
+  const properties = (await Property.find(
+    {},
+  ).lean()) as unknown as PropertyType[];
+
   return (
     <>
       <section className="px-4 py-6">
