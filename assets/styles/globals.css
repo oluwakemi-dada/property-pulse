@@ -10,7 +10,7 @@
 
 @utilities {
   .grid-cols-70\/30 {
-    grid-template-columns: 70% 28%;
+    @apply grid-cols-[70%_30%];
   }
 }
 

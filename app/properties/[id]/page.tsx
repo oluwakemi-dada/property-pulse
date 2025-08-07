@@ -1,13 +1,49 @@
+import connectDB from '@/config/database';
+import Property from '@/models/Property';
+import PropertyHeaderImage from '@/components/PropertyHeaderImage';
+import type { Property as PropertyType } from '@/types';
+import Link from 'next/link';
+import { FaArrowLeft } from 'react-icons/fa';
+import PropertyDetails from '@/components/PropertyDetails';
+
 type PropertyPageProps = {
   params: Promise<{ id: string }>;
 };
 
 const PropertyPage = async ({ params }: PropertyPageProps) => {
+  await connectDB();
   const { id } = await params;
+
+  const property = (await Property.findById(
+    id,
+  ).lean()) as unknown as PropertyType;
+
   return (
-    <div>
-      <h1>Property Page {id}</h1>
-    </div>
+    <>
+      <PropertyHeaderImage image={property.images[0]} />
+      <section>
+        <div className="container m-auto px-6 py-6">
+          <Link
+            href="/properties"
+            className="flex items-center text-blue-500 hover:text-blue-600"
+          >
+            <FaArrowLeft className="mr-2" /> Back to Properties
+          </Link>
+        </div>
+      </section>
+      <section className="bg-blue-50">
+        <div className="container m-auto px-6 py-10">
+          <div className="md:grid-cols-70/30 grid w-full grid-cols-1 gap-6">
+            <PropertyDetails property={property} />
+            <aside className="space-y-4">
+              {/* <BookmarkButton property={property} />
+              <ShareButtons property={property} />
+              <PropertyContactForm property={property} /> */}
+            </aside>
+          </div>
+        </div>
+      </section>
+    </>
   );
 };
 
