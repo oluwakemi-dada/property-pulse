@@ -2,21 +2,30 @@ import Link from 'next/link';
 import Image from 'next/image';
 import profileDefault from '@/assets/images/profile.png';
 import { useState } from 'react';
+import { useSession, signOut } from 'next-auth/react';
 
 const ProfileMenu = () => {
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+
+  const { data: session } = useSession();
+  const profileImage = session?.user?.image;
 
   const handleToggleProfileMenu = () => {
     setIsProfileMenuOpen((prev) => !prev);
   };
 
+  const handleSignOut = () => {
+    setIsProfileMenuOpen(false);
+    signOut();
+  };
+
   return (
-    <div className="relative ml-3">
+    <div className="relative top-[-2px] ml-3">
       {/* Profile dropdown button */}
       <div>
         <button
           type="button"
-          className="relative flex rounded-full bg-gray-800 text-sm focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-none"
+          className="relative flex cursor-pointer rounded-full bg-gray-800 text-sm focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-none"
           id="user-menu-button"
           aria-expanded="false"
           aria-haspopup="true"
@@ -24,7 +33,13 @@ const ProfileMenu = () => {
         >
           <span className="absolute -inset-1.5"></span>
           <span className="sr-only">Open user menu</span>
-          <Image className="h-8 w-8 rounded-full" src={profileDefault} alt="" />
+          <Image
+            width={40}
+            height={40}
+            className="h-8 w-8 rounded-full"
+            src={profileImage || profileDefault}
+            alt=""
+          />
         </button>
       </div>
 
@@ -56,15 +71,15 @@ const ProfileMenu = () => {
           >
             Saved Properties
           </Link>
-          <Link
-            href="#"
-            className="block px-4 py-2 text-sm text-gray-700"
+          <button
+            className="block cursor-pointer px-4 py-2 text-sm text-gray-700"
             role="menuitem"
             tabIndex={-1}
             id="user-menu-item-2"
+            onClick={handleSignOut}
           >
             Sign Out
-          </Link>
+          </button>
         </div>
       )}
     </div>

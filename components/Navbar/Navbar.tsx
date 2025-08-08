@@ -9,7 +9,6 @@ import LoggedInMenu from './LoggedInMenu';
 import LoggedOutMenu from './LoggedOutMenu';
 import MobileMenuButton from './MobileMenuButton';
 import {
-  signOut,
   useSession,
   getProviders,
   ClientSafeProvider,
