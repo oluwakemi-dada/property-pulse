@@ -29,3 +29,4 @@ export type Property = {
   createdAt: string;
   updatedAt: string;
 };
+

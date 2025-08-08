@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import MobileMenu from './MobileMenu';
 import Logo from './Logo';
@@ -8,12 +8,32 @@ import DesktopMenu from './DesktopMenu';
 import LoggedInMenu from './LoggedInMenu';
 import LoggedOutMenu from './LoggedOutMenu';
 import MobileMenuButton from './MobileMenuButton';
+import {
+  signOut,
+  useSession,
+  getProviders,
+  ClientSafeProvider,
+} from 'next-auth/react';
 
 const Navbar = () => {
+  const { data: session } = useSession();
+
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [providers, setProviders] = useState<Record<
+    string,
+    ClientSafeProvider
+  > | null>(null);
 
   const pathname = usePathname();
+
+  useEffect(() => {
+    const setAuthProviders = async () => {
+      const res = await getProviders();
+      setProviders(res);
+    };
+
+    setAuthProviders();
+  }, []);
 
   const handleToggleMobileMenu = () => {
     setIsMobileMenuOpen((prev) => !prev);
@@ -27,16 +47,16 @@ const Navbar = () => {
 
           <div className="flex flex-1 items-center justify-center md:items-stretch md:justify-start">
             <Logo />
-            <DesktopMenu pathname={pathname} isLoggedIn={isLoggedIn} />
+            <DesktopMenu pathname={pathname} isLoggedIn={session} />
           </div>
 
-          {!isLoggedIn && <LoggedOutMenu />}
-          {isLoggedIn && <LoggedInMenu />}
+          {!session && <LoggedOutMenu providers={providers} />}
+          {session && <LoggedInMenu />}
         </div>
       </div>
 
       {isMobileMenuOpen && (
-        <MobileMenu pathname={pathname} isLoggedIn={isLoggedIn} />
+        <MobileMenu pathname={pathname} isLoggedIn={session} />
       )}
     </nav>
   );

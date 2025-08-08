@@ -1,9 +1,10 @@
+import { Session } from 'next-auth';
 import Link from 'next/link';
 import { FaGoogle } from 'react-icons/fa';
 
 type MobileMenuProps = {
   pathname: string;
-  isLoggedIn: boolean;
+  isLoggedIn: Session | null;
 };
 
 const MobileMenu = ({ pathname, isLoggedIn }: MobileMenuProps) => {

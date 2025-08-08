@@ -1,8 +1,9 @@
+import { Session } from 'next-auth';
 import Link from 'next/link';
 
 type DesktopMenuProps = {
   pathname: string;
-  isLoggedIn: boolean;
+  isLoggedIn: Session | null;
 };
 
 const DesktopMenu = ({ pathname, isLoggedIn }: DesktopMenuProps) => {
