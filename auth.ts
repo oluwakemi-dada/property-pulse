@@ -1,11 +1,13 @@
-import { NextAuthOptions, Profile } from 'next-auth';
-import GoogleProvider from 'next-auth/providers/google';
+import NextAuth from 'next-auth';
+import Google from 'next-auth/providers/google';
 import connectDB from '@/config/database';
 import User from '@/models/User';
+import { authConfig } from './auth.config';
 
-export const authOptions: NextAuthOptions = {
+export const { auth, signIn, signOut, handlers } = NextAuth({
+  ...authConfig, // spread the minimal config (including authorized callback)
   providers: [
-    GoogleProvider({
+    Google({
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
       authorization: {
@@ -18,6 +20,7 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
+    ...authConfig.callbacks,
     // Invoked on successful sign in
     async signIn({ profile }): Promise<boolean> {
       // 1. Connect to the database
@@ -32,7 +35,6 @@ export const authOptions: NextAuthOptions = {
         if (!profile) return false;
 
         console.log(profile);
-        
 
         await User.create({
           email: profile?.email,
@@ -50,9 +52,9 @@ export const authOptions: NextAuthOptions = {
       // 1. Get user from database
       const user = await User.findOne({ email: session?.user?.email });
       // 2. Assign user if from the session
-      session.user.id = user._id.toString()
+      session.user.id = user._id.toString();
       // 3. Return the session
       return session;
     },
   },
-};
+});

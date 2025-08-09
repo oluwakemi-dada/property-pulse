@@ -1,4 +1,4 @@
-import 'next-auth';
+import { DefaultProfile, DefaultSession } from 'next-auth';
 
 declare module 'next-auth' {
   interface Session {
@@ -7,7 +7,16 @@ declare module 'next-auth' {
       name?: string | null;
       email?: string | null;
       image?: string | null;
+      username?: string | null;
     };
+  }
+
+  interface User {
+    id: string;
+    name?: string | null;
+    email: string;
+    image?: string | null;
+    username?: string | null;
   }
 
   interface Profile extends DefaultProfile {
