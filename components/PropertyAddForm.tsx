@@ -1,5 +1,6 @@
 'use client';
 import addProperty from '@/app/actions/addProperty';
+import { useFormStatus } from 'react-dom';
 
 const PropertyAddForm = () => {
   return (
@@ -386,7 +387,7 @@ const PropertyAddForm = () => {
           type="file"
           id="images"
           name="images"
-          className="w-full rounded border px-3 py-2"
+          className="w-full cursor-pointer rounded border px-3 py-2"
           accept="image/*"
           multiple
           required
@@ -394,14 +395,23 @@ const PropertyAddForm = () => {
       </div>
 
       <div>
-        <button
-          className="focus:shadow-outline w-full rounded-full bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-600 focus:outline-none"
-          type="submit"
-        >
-          Add Property
-        </button>
+        <SubmitButton />
       </div>
     </form>
+  );
+};
+
+const SubmitButton = () => {
+  const { pending } = useFormStatus();
+
+  return (
+    <button
+      className="focus:shadow-outline w-full rounded-full bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-600 focus:outline-none disabled:cursor-not-allowed"
+      type="submit"
+      disabled={pending}
+    >
+      {pending ? 'Adding...' : 'Add Property'}
+    </button>
   );
 };
 
