@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { FaArrowLeft } from 'react-icons/fa';
 import PropertyDetails from '@/components/PropertyDetails';
 import PropertyImages from '@/components/PropertyImages';
+import { serializeProperty } from '@/utils/serializeData';
 
 type PropertyPageProps = {
   params: Promise<{ id: string }>;
@@ -15,10 +16,19 @@ const PropertyPage = async ({ params }: PropertyPageProps) => {
   await connectDB();
   const { id } = await params;
 
-  const property = (await Property.findById(
+  const dbproperty = (await Property.findById(
     id,
   ).lean()) as unknown as PropertyType;
+  const property = serializeProperty(dbproperty);
 
+  if (!property) {
+    return (
+      <h1 className="mt-10 text-center text-2xl font-bold">
+        Property Not Found
+      </h1>
+    );
+  }
+  
   return (
     <>
       <PropertyHeaderImage image={property.images[0]} />
