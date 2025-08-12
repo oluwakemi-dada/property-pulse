@@ -5,6 +5,7 @@ import type { Property as PropertyType } from '@/types';
 import Link from 'next/link';
 import { FaArrowLeft } from 'react-icons/fa';
 import PropertyDetails from '@/components/PropertyDetails';
+import PropertyImages from '@/components/PropertyImages';
 
 type PropertyPageProps = {
   params: Promise<{ id: string }>;
@@ -35,14 +36,10 @@ const PropertyPage = async ({ params }: PropertyPageProps) => {
         <div className="container m-auto px-6 py-10">
           <div className="md:grid-cols-70/30 grid w-full grid-cols-1 gap-6">
             <PropertyDetails property={property} />
-            <aside className="space-y-4">
-              {/* <BookmarkButton property={property} />
-              <ShareButtons property={property} />
-              <PropertyContactForm property={property} /> */}
-            </aside>
           </div>
         </div>
       </section>
+      <PropertyImages images={property.images} />
     </>
   );
 };
