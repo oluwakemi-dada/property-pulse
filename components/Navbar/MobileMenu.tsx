@@ -1,13 +1,15 @@
 import { Session } from 'next-auth';
 import Link from 'next/link';
-import { FaGoogle } from 'react-icons/fa';
+import { ClientSafeProvider } from 'next-auth/react';
+import AuthButton from '../Button/AuthButton';
 
 type MobileMenuProps = {
   pathname: string;
   isLoggedIn: Session | null;
+  providers: Record<string, ClientSafeProvider> | null;
 };
 
-const MobileMenu = ({ pathname, isLoggedIn }: MobileMenuProps) => {
+const MobileMenu = ({ pathname, isLoggedIn, providers }: MobileMenuProps) => {
   return (
     <div id="mobile-menu">
       <div className="space-y-1 px-2 pt-2 pb-3">
@@ -31,12 +33,11 @@ const MobileMenu = ({ pathname, isLoggedIn }: MobileMenuProps) => {
             Add Property
           </Link>
         )}
-        {!isLoggedIn && (
-          <button className="my-4 flex items-center rounded-md bg-gray-700 px-3 py-2 text-white hover:bg-gray-900 hover:text-white">
-            <FaGoogle className="mr-2" />
-            <span>Login or Register</span>
-          </button>
-        )}
+        {!isLoggedIn &&
+          providers &&
+          Object.values(providers).map((provider) => (
+            <AuthButton key={provider.id} provider={provider} />
+          ))}
       </div>
     </div>
   );

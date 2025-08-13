@@ -55,7 +55,11 @@ const Navbar = () => {
       </div>
 
       {isMobileMenuOpen && (
-        <MobileMenu pathname={pathname} isLoggedIn={session} />
+        <MobileMenu
+          pathname={pathname}
+          isLoggedIn={session}
+          providers={providers}
+        />
       )}
     </nav>
   );
