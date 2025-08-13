@@ -1,7 +1,7 @@
-'use client'
+'use client';
 
 import { FaPaperPlane } from 'react-icons/fa';
-import SubmitButton from './SubmitButton';
+import SubmitButton from './Button/SubmitButton';
 import { Property } from '@/types';
 
 type PropertyContactFormProps = {

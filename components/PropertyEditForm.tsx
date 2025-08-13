@@ -1,7 +1,7 @@
 'use client';
 
 import { Property } from '@/types';
-import SubmitButton from './SubmitButton';
+import SubmitButton from './Button/SubmitButton';
 import updateProperty from '@/app/actions/updateProperty';
 
 type PropertyEditFormProps = {

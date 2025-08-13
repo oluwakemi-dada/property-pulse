@@ -8,7 +8,7 @@ import PropertyDetails from '@/components/PropertyDetails';
 import PropertyImages from '@/components/PropertyImages';
 import { serializeProperty } from '@/utils/serializeData';
 import BookmarkButton from '@/components/BookmarkButton';
-import ShareButtons from '@/components/ShareButtons';
+import ShareButtons from '@/components/Button/ShareButtons';
 import PropertyContactForm from '@/components/PropertyContactForm';
 
 type PropertyPageProps = {

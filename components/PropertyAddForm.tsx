@@ -1,7 +1,7 @@
 'use client';
 
 import addProperty from '@/app/actions/addProperty';
-import SubmitButton from './SubmitButton';
+import SubmitButton from './Button/SubmitButton';
 
 const PropertyAddForm = () => {
   return (
