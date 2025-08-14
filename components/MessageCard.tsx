@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { toast } from 'sonner';
 import markMessageAsRead from '@/app/actions/markMessageAsRead';
 import deleteMessage from '@/app/actions/deleteMessage';
+import { useGlobalContext } from '@/context/GlobalContext';
 import { Message } from '@/types';
 
 type MessageCardProps = {
@@ -14,16 +15,24 @@ const MessageCard = ({ message }: MessageCardProps) => {
   const [isRead, setIsRead] = useState(message.read);
   const [isDeleted, setIsDeleted] = useState(false);
 
+  const { setUnreadMessageCount } = useGlobalContext();
+
   const handleReadClick = async () => {
     const read = await markMessageAsRead(message._id);
 
     setIsRead(read);
+    setUnreadMessageCount((prevCount: number) =>
+      read ? prevCount - 1 : prevCount + 1,
+    );
     toast.success(`Marked As ${read ? 'Read' : 'New'}`);
   };
 
   const handleDeleteClick = async () => {
     await deleteMessage(message._id);
     setIsDeleted(true);
+    setUnreadMessageCount((prevCount: number) =>
+      isRead ? prevCount : prevCount - 1,
+    );
     toast.success('Message Deleted');
   };
 

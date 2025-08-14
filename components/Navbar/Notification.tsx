@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import UnreadMessageCount from '../UnreadMessageCount';
 
 const Notification = () => {
   return (
@@ -24,9 +25,8 @@ const Notification = () => {
           />
         </svg>
       </button>
-      <span className="absolute top-2.5 right-3 inline-flex translate-x-1/2 -translate-y-1/2 transform items-center justify-center rounded-full bg-red-600 px-2 py-1 text-xs leading-none font-bold text-white">
-        2{/* Replace with the actual number of notifications */}
-      </span>
+
+      <UnreadMessageCount />
     </Link>
   );
 };
