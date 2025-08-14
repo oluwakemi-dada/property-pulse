@@ -28,14 +28,16 @@ const PropertyCard = ({ property }: PropertyCardProps) => {
 
   return (
     <div className="relative rounded-xl shadow-md">
-      <Image
-        src={property.images[0]}
-        width="0"
-        height="0"
-        sizes="100vw"
-        alt=""
-        className="h-auto w-full rounded-t-xl"
-      />
+      <Link href={`/properties/${property._id}`}>
+        <Image
+          src={property.images[0]}
+          width="0"
+          height="0"
+          sizes="100vw"
+          alt=""
+          className="h-auto w-full rounded-t-xl"
+        />
+      </Link>
       <div className="p-4">
         <div className="mb-6 text-left md:text-center lg:text-left">
           <div className="text-gray-600">{property.type}</div>
