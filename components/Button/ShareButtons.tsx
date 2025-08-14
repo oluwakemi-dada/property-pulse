@@ -6,9 +6,9 @@ import {
   WhatsappShareButton,
   EmailShareButton,
   FacebookIcon,
-  TwitterIcon,
   WhatsappIcon,
   EmailIcon,
+  XIcon,
 } from 'react-share';
 import { Property } from '@/types';
 
@@ -27,20 +27,18 @@ const ShareButtons = ({ property }: ShareButtonsProps) => {
       <div className="flex justify-center gap-3 pb-5">
         <FacebookShareButton
           url={shareUrl}
-          title={property.name}
+          {...({ quote: property.name } as unknown as Record<string, unknown>)}
           hashtag={`#${property.type.replace(/\s/g, '')}ForRent`}
         >
           <FacebookIcon size={40} round={true} />
         </FacebookShareButton>
-
         <TwitterShareButton
           url={shareUrl}
           title={property.name}
           hashtags={[`${property.type.replace(/\s/g, '')}ForRent`]}
         >
-          <TwitterIcon size={40} round={true} />
+          <XIcon size={40} round={true} />
         </TwitterShareButton>
-
         <WhatsappShareButton
           url={shareUrl}
           title={property.name}
@@ -48,7 +46,6 @@ const ShareButtons = ({ property }: ShareButtonsProps) => {
         >
           <WhatsappIcon size={40} round={true} />
         </WhatsappShareButton>
-
         <EmailShareButton
           url={shareUrl}
           subject={property.name}
