@@ -30,3 +30,22 @@ export type Property = {
   updatedAt: string;
 };
 
+export type Message = {
+  _id: string;
+  sender: {
+    _id: string;
+    username: string;
+  };
+  recipient: string;
+  property: {
+    _id: string;
+    name: string;
+  };
+  name: string;
+  email: string;
+  phone: string;
+  body: string;
+  read: boolean;
+  createdAt: string;
+  updatedAt: string;
+};

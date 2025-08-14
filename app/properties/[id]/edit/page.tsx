@@ -1,7 +1,7 @@
 import PropertyEditForm from '@/components/PropertyEditForm';
 import connectDB from '@/config/database';
 import Property from '@/models/Property';
-import { serializeProperty } from '@/utils/serializeData';
+import { convertToSerializeableObject } from '@/utils/convertToSerializeableObject';
 
 type PropertyEditPageProps = {
   params: Promise<{ id: string }>;
@@ -12,7 +12,7 @@ const PropertyEditPage = async ({ params }: PropertyEditPageProps) => {
 
   await connectDB();
   const dbProperty = await Property.findById(id).lean();
-  const property = serializeProperty(dbProperty);
+  const property = convertToSerializeableObject(dbProperty);
 
   if (!property) {
     return (

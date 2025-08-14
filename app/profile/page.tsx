@@ -4,7 +4,7 @@ import Property from '@/models/Property';
 import { getSessionUser } from '@/utils/getSessionUser';
 import profileDefault from '@/assets/images/profile.png';
 import ProfileProperties from '@/components/ProfileProperties';
-import { serializeProperties } from '@/utils/serializeData';
+import { convertToSerializeableObject } from '@/utils/convertToSerializeableObject';
 
 const ProfilePage = async () => {
   await connectDB();
@@ -18,7 +18,7 @@ const ProfilePage = async () => {
   if (!userId) throw new Error('User ID is required');
 
   const dbProperties = await Property.find({ owner: userId }).lean();
-  const properties = serializeProperties(dbProperties);
+  const properties = dbProperties.map(convertToSerializeableObject);
 
   return (
     <section className="bg-blue-50">

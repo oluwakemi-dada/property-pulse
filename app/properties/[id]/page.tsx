@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { FaArrowLeft } from 'react-icons/fa';
 import PropertyDetails from '@/components/PropertyDetails';
 import PropertyImages from '@/components/PropertyImages';
-import { serializeProperty } from '@/utils/serializeData';
+import { convertToSerializeableObject } from '@/utils/convertToSerializeableObject';
 import BookmarkButton from '@/components/BookmarkButton';
 import ShareButtons from '@/components/Button/ShareButtons';
 import PropertyContactForm from '@/components/PropertyContactForm';
@@ -22,7 +22,7 @@ const PropertyPage = async ({ params }: PropertyPageProps) => {
   const dbproperty = (await Property.findById(
     id,
   ).lean()) as unknown as PropertyType;
-  const property = serializeProperty(dbproperty);
+  const property = convertToSerializeableObject(dbproperty);
 
   if (!property) {
     return (

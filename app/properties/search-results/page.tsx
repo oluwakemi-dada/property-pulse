@@ -4,7 +4,7 @@ import PropertySearchForm from '@/components/PropertySearchForm';
 import { FaArrowAltCircleLeft } from 'react-icons/fa';
 import connectDB from '@/config/database';
 import Property from '@/models/Property';
-import { serializeProperties } from '@/utils/serializeData';
+import { convertToSerializeableObject } from '@/utils/convertToSerializeableObject';
 import { FilterQuery } from 'mongoose';
 import type { Property as PropertyType } from '@/types';
 
@@ -40,7 +40,7 @@ const SearchResultsPage = async ({ searchParams }: SearchResultsPageProps) => {
   }
 
   const propertiesQueryResults = await Property.find(query).lean();
-  const properties = serializeProperties(propertiesQueryResults);
+  const properties = propertiesQueryResults.map(convertToSerializeableObject);
 
   return (
     <>
