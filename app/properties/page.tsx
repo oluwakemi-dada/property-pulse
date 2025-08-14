@@ -1,13 +1,25 @@
+import Pagination from '@/components/Pagination';
 import PropertyCard from '@/components/PropertyCard';
 import connectDB from '@/config/database';
 import Property from '@/models/Property';
 import type { Property as PropertyType } from '@/types';
 
-const PropertiesPage = async () => {
+type PropertiesPageProps = {
+  searchParams: Promise<{ page: number; pageSize: number }>;
+};
+
+const PropertiesPage = async ({ searchParams }: PropertiesPageProps) => {
   await connectDB();
-  const properties = (await Property.find(
-    {},
-  ).lean()) as unknown as PropertyType[];
+  const { page = 1, pageSize = 9 } = await searchParams;
+
+  const skip = (page - 1) * pageSize;
+  const total = await Property.countDocuments({});
+
+  const properties = (await Property.find({})
+    .skip(skip)
+    .limit(pageSize)) as unknown as PropertyType[];
+
+  const showPagination = total > pageSize;
 
   return (
     <>
@@ -21,6 +33,13 @@ const PropertiesPage = async () => {
                 <PropertyCard key={property._id} property={property} />
               ))}
             </div>
+          )}
+          {showPagination && (
+            <Pagination
+              page={Number(page)}
+              pageSize={Number(pageSize)}
+              totalItems={total}
+            />
           )}
         </div>
       </section>
