@@ -7,7 +7,7 @@ type AuthProviderProps = {
 };
 
 const AuthProvider = ({ children }: AuthProviderProps) => {
-  // @ts-expect-error
+  // @ts-expect-error - Passing session from server to client provider
   return <SessionProvider>{children}</SessionProvider>;
 };
 export default AuthProvider;
