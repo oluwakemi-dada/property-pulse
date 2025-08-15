@@ -55,6 +55,9 @@ const MessageCard = ({ message }: MessageCardProps) => {
 
       <ul className="mt-4">
         <li>
+          <strong>Name: </strong> <span>{message.name}</span>
+        </li>
+        <li>
           <strong>Reply Email:</strong>{' '}
           <a href={`mailto:${message.email}`} className="text-blue-500">
             {message.email}
