@@ -1,12 +1,16 @@
 import { Session } from 'next-auth';
 import Link from 'next/link';
-import { ClientSafeProvider } from 'next-auth/react';
 import AuthButton from '../Button/AuthButton';
+
+type AuthProvider = {
+  id: string;
+  name?: string;
+};
 
 type MobileMenuProps = {
   pathname: string;
   isLoggedIn: Session | null;
-  providers: Record<string, ClientSafeProvider> | null;
+  providers: Record<string, AuthProvider> | null;
 };
 
 const MobileMenu = ({ pathname, isLoggedIn, providers }: MobileMenuProps) => {

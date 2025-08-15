@@ -1,9 +1,14 @@
-import { ClientSafeProvider, signIn } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 import { ReactNode } from 'react';
 import { FaGoogle } from 'react-icons/fa';
 
+type AuthProvider = {
+  id: string;
+  name?: string;
+};
+
 type AuthButtonProps = {
-  provider: Record<string, ClientSafeProvider> | null;
+  provider: AuthProvider | null;
 };
 
 const providerIcons: Record<string, ReactNode> = {
@@ -11,6 +16,8 @@ const providerIcons: Record<string, ReactNode> = {
 };
 
 const AuthButton = ({ provider }: AuthButtonProps) => {
+  if (!provider) return null;
+
   return (
     <button
       key={provider?.id}

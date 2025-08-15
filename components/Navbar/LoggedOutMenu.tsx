@@ -1,8 +1,12 @@
-import { ClientSafeProvider } from 'next-auth/react';
 import AuthButton from '../Button/AuthButton';
 
+type AuthProvider = {
+  id: string;
+  name?: string;
+};
+
 type LoggedOutMenuProps = {
-  providers: Record<string, ClientSafeProvider> | null;
+  providers: Record<string, AuthProvider> | null;
 };
 
 const LoggedOutMenu = ({ providers }: LoggedOutMenuProps) => {

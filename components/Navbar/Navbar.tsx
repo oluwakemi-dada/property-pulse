@@ -8,11 +8,12 @@ import DesktopMenu from './DesktopMenu';
 import LoggedInMenu from './LoggedInMenu';
 import LoggedOutMenu from './LoggedOutMenu';
 import MobileMenuButton from './MobileMenuButton';
-import {
-  useSession,
-  getProviders,
-  ClientSafeProvider,
-} from 'next-auth/react';
+import { useSession, getProviders } from 'next-auth/react';
+
+type AuthProvider = {
+  id: string;
+  name?: string;
+};
 
 const Navbar = () => {
   const { data: session } = useSession();
@@ -20,7 +21,7 @@ const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [providers, setProviders] = useState<Record<
     string,
-    ClientSafeProvider
+    AuthProvider
   > | null>(null);
 
   const pathname = usePathname();
