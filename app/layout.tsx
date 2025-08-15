@@ -5,6 +5,7 @@ import AuthProvider from '@/components/AuthProvider';
 import { Toaster } from 'sonner';
 import '@/assets/styles/globals.css';
 import { GlobalProvider } from '@/context/GlobalContext';
+import 'photoswipe/photoswipe.css';
 
 export const metadata = {
   title: 'Property Pulse',
