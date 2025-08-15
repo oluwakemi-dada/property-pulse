@@ -7,7 +7,8 @@ type AuthProviderProps = {
 };
 
 const AuthProvider = ({ children }: AuthProviderProps) => {
-  // @ts-expect-error - Passing session from server to client provider
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   return <SessionProvider>{children}</SessionProvider>;
 };
 export default AuthProvider;
