@@ -39,6 +39,7 @@ const MessageCard = ({ message }: MessageCardProps) => {
   if (isDeleted) {
     return <p>Deleted Message</p>;
   }
+  console.log('ISrEAD', isRead);
 
   return (
     <div className="relative rounded-md border border-gray-200 bg-white p-4 shadow-md">
@@ -77,7 +78,7 @@ const MessageCard = ({ message }: MessageCardProps) => {
       <div className="mt-4 flex gap-3">
         <button
           onClick={handleReadClick}
-          className={'rounded-md bg-blue-500 px-3 py-1 text-white'}
+          className={`${isRead ? '!bg-gray-300 text-black' : 'bg-blue-500 text-white'} rounded-md px-3 py-1`}
         >
           {isRead ? 'Mark As New' : 'Mark As Read'}
         </button>
