@@ -3,7 +3,8 @@ import connectDB from '@/config/database';
 import Message from '@/models/Message';
 import { getSessionUser } from '@/utils/getSessionUser';
 
-// @ts-expect-error - ignore
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 async function addMessage(_previousState, formData: FormData) {
   await connectDB();
 

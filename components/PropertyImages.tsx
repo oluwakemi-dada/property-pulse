@@ -13,7 +13,8 @@ const PropertyImages = ({ images }: PropertyImagesProps) => {
       <section className="bg-blue-50 p-4">
         <div className="container mx-auto">
           {images.length === 1 ? (
-            // @ts-expect-error - type definition error
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
             <Item
               original={images[0]}
               thumbnail={images[0]}
@@ -40,7 +41,7 @@ const PropertyImages = ({ images }: PropertyImagesProps) => {
                   key={index}
                   className={`${images.length === 3 && index === 2 ? 'col-span-2' : 'col-span-1'}`}
                 >
-                  {/* @ts-expect-error - type definition error */}
+                  {/* @ts-expect-error - PhotoSwipe Item type mismatch in react-photoswipe-gallery */}
                   <Item
                     original={image}
                     thumbnail={image}
