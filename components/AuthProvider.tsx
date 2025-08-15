@@ -7,7 +7,7 @@ type AuthProviderProps = {
 };
 
 const AuthProvider = ({ children }: AuthProviderProps) => {
-  // @ts-expect-error React 19 type mismatch
+  // @ts-expect-error
   return <SessionProvider>{children}</SessionProvider>;
 };
 export default AuthProvider;
