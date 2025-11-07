@@ -8,7 +8,7 @@ const SavedPropertiesPage = async () => {
   const sessionUser = await getSessionUser();
 
   if (!sessionUser || !sessionUser.userId) {
-    redirect("/")
+    redirect("/signin")
   }
 
   const { userId } = sessionUser;

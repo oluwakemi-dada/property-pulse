@@ -13,7 +13,7 @@ const MessagesPage = async () => {
   const sessionUser = await getSessionUser();
 
   if (!sessionUser) {
-    redirect("/")
+    redirect("/signin")
   };
 
   const { userId } = sessionUser;

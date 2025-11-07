@@ -6,7 +6,7 @@ const PropertyAddPage = async () => {
   const sessionUser = await getSessionUser();
   
   if (!sessionUser){
-    redirect("/")
+    redirect("/signin")
   }
 
   return (
