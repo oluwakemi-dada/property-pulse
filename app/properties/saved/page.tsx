@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 import PropertyCard from '@/components/PropertyCard';
 import User from '@/models/User';
 import { Property } from '@/types';
@@ -7,7 +8,7 @@ const SavedPropertiesPage = async () => {
   const sessionUser = await getSessionUser();
 
   if (!sessionUser || !sessionUser.userId) {
-    throw new Error('User ID is required');
+    redirect("/")
   }
 
   const { userId } = sessionUser;

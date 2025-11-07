@@ -4,7 +4,7 @@ import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import clientPromise from "@/lib/mongodb";
 import { authConfig } from './auth.config';
 
-export const { auth, signIn, signOut, handlers } = NextAuth({
+export const authOptions = {
   adapter: MongoDBAdapter(clientPromise), 
   ...authConfig, // spread the minimal config (including authorized callback)
   providers: [
@@ -22,8 +22,7 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
   ],
   callbacks: {
     ...authConfig.callbacks,
-
-    async session({ session, user }) {
+    async session({ session, user }: any) {
       if (!session.user) return session;
 
       session.user.id = user.id; // user.id comes from the adapter
@@ -31,4 +30,6 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
       return session;
     },
   },
-});
+}
+
+export const { handlers, signIn, signOut, auth } = NextAuth(authOptions);

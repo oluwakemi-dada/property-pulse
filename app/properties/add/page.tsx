@@ -1,6 +1,14 @@
 import PropertyAddForm from '@/components/PropertyAddForm';
+import { getSessionUser } from '@/utils/getSessionUser';
+import { redirect } from "next/navigation";
 
-const PropertyAddPage = () => {
+const PropertyAddPage = async () => {
+  const sessionUser = await getSessionUser();
+  
+  if (!sessionUser){
+    redirect("/")
+  }
+
   return (
     <section className="bg-blue-50">
       <div className="container m-auto max-w-2xl py-24">

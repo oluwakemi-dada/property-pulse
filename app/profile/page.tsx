@@ -5,13 +5,16 @@ import { getSessionUser } from '@/utils/getSessionUser';
 import profileDefault from '@/assets/images/profile.png';
 import ProfileProperties from '@/components/ProfileProperties';
 import { convertToSerializeableObject } from '@/utils/convertToSerializeableObject';
+import { redirect } from "next/navigation";
 
 const ProfilePage = async () => {
   await connectDB();
 
   const sessionUser = await getSessionUser();
 
-  if (!sessionUser) throw new Error('User is not authenticated');
+  if (!sessionUser){
+    redirect("/")
+  }
 
   const { userId } = sessionUser;
 

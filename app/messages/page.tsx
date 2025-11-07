@@ -1,5 +1,6 @@
 import connectDB from '@/config/database';
 import Message from '@/models/Message';
+import { redirect } from "next/navigation";
 import MessageCard from '@/components/MessageCard';
 import { getSessionUser } from '@/utils/getSessionUser';
 import { convertToSerializeableObject } from '@/utils/convertToSerializeableObject';
@@ -11,7 +12,9 @@ const MessagesPage = async () => {
 
   const sessionUser = await getSessionUser();
 
-  if (!sessionUser) throw new Error('User is not authenticated');
+  if (!sessionUser) {
+    redirect("/")
+  };
 
   const { userId } = sessionUser;
 
