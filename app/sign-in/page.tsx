@@ -1,15 +1,25 @@
-
+'use client'
 import AuthButton from '@/components/Button/AuthButton';
-import { redirect } from 'next/navigation';
-import { auth, authOptions } from "@/auth";
+import { redirect, useRouter, useSearchParams } from 'next/navigation';
+import { useSession } from 'next-auth/react';
+import { useEffect } from 'react';
 
-const SigninPage = async () => {
-  const session = await auth();
+const SigninPage =  () => {
+  const {data: session, status} =  useSession();
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get('callbackUrl') || '/';
 
-  if (session?.user) redirect("/");
+    const router = useRouter();
 
-  // Fetch providers on the server
-  const providers = authOptions.providers ?? [];
+  useEffect(() => {
+    if (status !== 'loading' && session) {
+      router.push(callbackUrl); // or use callbackUrl
+    }
+  }, [session, status, router, callbackUrl]);
+
+  const providers = [
+    { id: 'google', name: 'Google' },
+  ];
 
   return (
     <div className="mt-10 flex flex-col items-center gap-10">
@@ -25,4 +35,6 @@ const SigninPage = async () => {
 };
 
 export default SigninPage
+
+
 

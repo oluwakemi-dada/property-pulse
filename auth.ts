@@ -1,11 +1,12 @@
 import NextAuth from 'next-auth';
 import Google from 'next-auth/providers/google';
-import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
-import clientPromise from "@/lib/mongodb";
+import { MongoDBAdapter } from "@auth/mongodb-adapter"
+import client from "@/lib/mongodb";
 import { authConfig } from './auth.config';
+import { Adapter } from 'next-auth/adapters';
 
 export const authOptions = {
-  adapter: MongoDBAdapter(clientPromise), 
+  adapter: MongoDBAdapter(client) as Adapter, 
   ...authConfig, // spread the minimal config (including authorized callback)
   providers: [
     Google({

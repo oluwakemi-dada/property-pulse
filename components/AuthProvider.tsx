@@ -1,14 +1,16 @@
-'use client';
-import { SessionProvider } from 'next-auth/react';
-import { ReactNode } from 'react';
+// import { SessionProvider } from 'next-auth/react';
+// import { ReactNode } from 'react';
+// import { getSessionUser } from '@/utils/getSessionUser';
 
-type AuthProviderProps = {
-  children: ReactNode;
-};
+// type AuthProviderProps = {
+//   children: ReactNode;
+// };
 
-const AuthProvider = ({ children }: AuthProviderProps) => {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  return <SessionProvider>{children}</SessionProvider>;
-};
-export default AuthProvider;
+// const AuthProvider = async({ children }: AuthProviderProps) => {
+//   const session = await getSessionUser()
+    
+//   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//   // @ts-ignore
+//   return <SessionProvider session={session}>{children}</SessionProvider>;
+// };
+// export default AuthProvider;

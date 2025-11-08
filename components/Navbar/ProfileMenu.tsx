@@ -1,6 +1,7 @@
+'use client'
+
 import Link from 'next/link';
 import Image from 'next/image';
-import { redirect } from "next/navigation";
 import profileDefault from '@/assets/images/profile.png';
 import { useState } from 'react';
 import { useSession, signOut } from 'next-auth/react';
@@ -17,8 +18,7 @@ const ProfileMenu = () => {
 
   const handleSignOut = () => {
     setIsProfileMenuOpen(false);
-    signOut();
-    redirect("/sign-in")
+    signOut({ callbackUrl: '/' });
   };
 
   return (

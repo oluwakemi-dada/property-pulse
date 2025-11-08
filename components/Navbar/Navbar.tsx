@@ -27,12 +27,17 @@ const Navbar = () => {
   const pathname = usePathname();
 
   useEffect(() => {
+    let isMounted = true;
     const setAuthProviders = async () => {
       const res = await getProviders();
-      setProviders(res);
+      if (isMounted && res) setProviders(res);
     };
 
     setAuthProviders();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   const handleToggleMobileMenu = () => {
