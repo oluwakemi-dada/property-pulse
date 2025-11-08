@@ -13,7 +13,7 @@ const ProfilePage = async () => {
   const sessionUser = await getSessionUser();
 
   if (!sessionUser){
-    redirect("/signin")
+    redirect("/sign-in")
   }
 
   const { userId } = sessionUser;

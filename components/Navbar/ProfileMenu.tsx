@@ -18,7 +18,7 @@ const ProfileMenu = () => {
   const handleSignOut = () => {
     setIsProfileMenuOpen(false);
     signOut();
-    redirect("/signin")
+    redirect("/sign-in")
   };
 
   return (
