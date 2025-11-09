@@ -1,4 +1,3 @@
-
 import AuthButton from '@/components/Button/AuthButton';
 import { redirect } from 'next/navigation';
 import { auth, authOptions } from "@/auth";
@@ -6,7 +5,9 @@ import { auth, authOptions } from "@/auth";
 const SigninPage = async () => {
   const session = await auth();
 
-  if (session?.user) redirect("/");
+  if (session?.user) {
+    redirect('/');
+  }
 
   // Fetch providers on the server
   const providers = authOptions.providers ?? [];

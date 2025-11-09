@@ -4,10 +4,9 @@ import { redirect } from "next/navigation";
 
 const PropertyAddPage = async () => {
   const sessionUser = await getSessionUser();
-  const currentPath = '/properties/add'; 
   
   if (!sessionUser){
-    redirect(`/sign-in?callbackUrl=${encodeURIComponent(currentPath)}`)
+    redirect(`/sign-in?callbackUrl=/properties/add`)
   }
 
   return (
@@ -20,4 +19,5 @@ const PropertyAddPage = async () => {
     </section>
   );
 };
+
 export default PropertyAddPage;

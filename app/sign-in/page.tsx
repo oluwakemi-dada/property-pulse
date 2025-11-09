@@ -9,7 +9,7 @@ const SigninPage =  () => {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get('callbackUrl') || '/';
 
-    const router = useRouter();
+  const router = useRouter();
 
   useEffect(() => {
     if (status !== 'loading' && session) {
