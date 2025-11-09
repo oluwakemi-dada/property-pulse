@@ -22,7 +22,6 @@ export const authOptions = {
       return session;
     },
   },
-
 }
 
 export const { handlers, signIn, signOut, auth } = NextAuth(authOptions);

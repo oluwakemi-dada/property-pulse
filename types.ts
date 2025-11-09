@@ -34,7 +34,7 @@ export type Message = {
   _id: string;
   sender: {
     _id: string;
-    username: string;
+    name: string;
   };
   recipient: string;
   property: {

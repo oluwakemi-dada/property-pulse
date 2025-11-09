@@ -23,7 +23,7 @@ const MessagesPage = async () => {
     read: true,
   })
     .sort({ createdAt: -1 })
-    .populate('sender', 'username')
+    .populate('sender', 'name')
     .populate('property', 'name')
     .lean();
 
@@ -32,7 +32,7 @@ const MessagesPage = async () => {
     read: false,
   })
     .sort({ createdAt: -1 })
-    .populate('sender', 'username')
+    .populate('sender', 'name')
     .populate('property', 'name')
     .lean();
 

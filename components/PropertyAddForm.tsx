@@ -1,11 +1,59 @@
 'use client';
 
+import { useState } from 'react';
 import addProperty from '@/app/actions/addProperty';
 import SubmitButton from './Button/SubmitButton';
 
+const MAX_SIZE = 1 * 1024 * 1024; // 1MB
+
 const PropertyAddForm = () => {
+  const [images, setImages] = useState<FileList | null>(null);
+  const [imageError, setImageError] = useState<string | null>(null);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSubmitError(null);
+    setImageError(null); 
+
+    if (!e.target.files) return;
+
+    const fileList = e.target.files;
+    const totalSize = Array.from(fileList).reduce((acc, f) => acc + f.size, 0);
+
+    if (totalSize > MAX_SIZE) {
+      setImages(null);
+      setImageError(`Total file size ${(totalSize / 1024 / 1024).toFixed(1)}MB exceeds 1MB limit`);
+      e.target.value = '';
+      return;
+    }
+
+    setImages(fileList);
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setSubmitError(null);
+
+    if (!images) {
+      setImageError('At least one image is required');
+      return;
+    }
+
+    const formData = new FormData(e.currentTarget);
+
+    try {
+      await addProperty(formData);
+
+    } catch (err: any) {
+      if (err?.name === 'RedirectError' || err?.message === 'NEXT_REDIRECT') return;
+      
+      console.error(err);
+      setSubmitError('Unexpected error occurred. Please try again.');
+    }
+  };
+
   return (
-    <form action={addProperty}>
+    <form onSubmit={handleSubmit}>
       <h2 className="mb-6 text-center text-3xl font-semibold">Add Property</h2>
 
       <div className="mb-4">
@@ -392,12 +440,22 @@ const PropertyAddForm = () => {
           accept="image/*"
           multiple
           required
+          onChange={handleChange}
         />
+
+        {imageError && (
+          <p className="mt-4 text-red-700 text-md">{imageError}</p>
+        )}
       </div>
+
+      {submitError && (
+        <p className="mt-4 text-red-700 text-md text-center">{submitError}</p>
+      )}
 
       <div>
         <SubmitButton pendingLabel="Adding...">Add Property</SubmitButton>
       </div>
+
     </form>
   );
 };
