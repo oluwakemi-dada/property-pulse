@@ -14,7 +14,7 @@ type FeaturedPropertyCardProps = {
   property: Property;
 };
 
-const FeaturedPropertyCard = ({ property }: FeaturedPropertyCardProps) => {
+const FeaturedPropertyCard = ({ property }: FeaturedPropertyCardProps) => {  
   return (
     <div className="relative flex flex-col rounded-xl bg-white shadow-md md:flex-row">
       <Image

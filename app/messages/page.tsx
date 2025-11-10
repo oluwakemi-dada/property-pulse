@@ -1,5 +1,6 @@
 import connectDB from '@/config/database';
 import Message from '@/models/Message';
+import '@/models';
 import { redirect } from "next/navigation";
 import MessageCard from '@/components/MessageCard';
 import { getSessionUser } from '@/utils/getSessionUser';
@@ -39,10 +40,19 @@ const MessagesPage = async () => {
   const messages: MessageType[] = [...unreadMessages, ...readMessages].map(
     (messageDoc) => {
       const message = convertToSerializeableObject(messageDoc);
-      message.sender = convertToSerializeableObject(messageDoc.sender);
-      message.property = convertToSerializeableObject(messageDoc.property);
+
+      // sender might also be deleted
+      message.sender = messageDoc.sender 
+        ? convertToSerializeableObject(messageDoc.sender) 
+        : { name: 'Deleted user', _id: null };
+
+      // property might be deleted
+      message.property = messageDoc.property 
+        ? convertToSerializeableObject(messageDoc.property) 
+        : { name: 'Property deleted', _id: null, image: null };
+
       return message;
-    },
+    }
   );
 
   return (

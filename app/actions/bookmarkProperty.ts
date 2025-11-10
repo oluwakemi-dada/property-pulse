@@ -8,9 +8,7 @@ import { revalidatePath } from 'next/cache';
 const bookmarkProperty = async (propertyId: string) => {
   await connectDB();
 
-  const sessionUser = await getSessionUser();
-  console.log(sessionUser);
-  
+  const sessionUser = await getSessionUser();  
 
   if (!sessionUser || !sessionUser.userId) {
     throw new Error('User ID is required');

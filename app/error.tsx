@@ -7,7 +7,6 @@ type ErrorPageProps = {
 };
 
 const ErrorPage = ({ error }: ErrorPageProps) => {
-  console.log(error);
   return (
     <section className="min-h-screen flex-grow bg-blue-50">
       <div className="container m-auto max-w-2xl py-24">

@@ -39,8 +39,7 @@ const MessageCard = ({ message }: MessageCardProps) => {
   if (isDeleted) {
     return <p>Deleted Message</p>;
   }
-  console.log('ISrEAD', isRead);
-
+  
   return (
     <div className="relative rounded-md border border-gray-200 bg-white p-4 shadow-md">
       {!isRead && (
@@ -50,7 +49,7 @@ const MessageCard = ({ message }: MessageCardProps) => {
       )}
       <h2 className="mb-4 text-xl">
         <span className="font-bold">Property Inquiry:</span>{' '}
-        {message.property.name}
+        <span className={`${!message.property._id ? 'text-red-700': ''}`}>{message.property.name || 'Property Deleted'}</span> 
       </h2>
       <p className="text-gray-700">{message.body}</p>
 
