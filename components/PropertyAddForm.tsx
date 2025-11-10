@@ -44,6 +44,7 @@ const PropertyAddForm = () => {
     try {
       await addProperty(formData);
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       if (err?.name === 'RedirectError' || err?.message === 'NEXT_REDIRECT') return;
       

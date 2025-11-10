@@ -89,6 +89,7 @@ const addProperty = async (formData: FormData) => {
 
     revalidatePath('/', 'layout');
     redirect(`/properties/${newProperty._id}`);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     console.error('Error adding property:', error)
     

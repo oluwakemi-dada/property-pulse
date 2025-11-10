@@ -1,6 +1,6 @@
 'use client'
 import AuthButton from '@/components/Button/AuthButton';
-import { redirect, useRouter, useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { useEffect } from 'react';
 
@@ -13,7 +13,7 @@ const SigninPage =  () => {
 
   useEffect(() => {
     if (status !== 'loading' && session) {
-      router.push(callbackUrl); // or use callbackUrl
+      router.push(callbackUrl);
     }
   }, [session, status, router, callbackUrl]);
 
