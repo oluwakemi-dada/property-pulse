@@ -2,6 +2,10 @@
 
 A property rental platform built with **Next.js** and **TypeScript**. Users can sign in, browse and upload property listings, manage their own listings, bookmark favorites, share on social media, and message property owners directly.
 
+## Demo
+
+<a href="https://property-pulse-app-zeta.vercel.app" target="_blank" rel="noopener noreferrer">Live Demo</a>
+
 ## Features
 - Browse and search property listings
 - Upload and manage personal listings
